@@ -2,10 +2,17 @@ import './index.css'
 import Ticker from './components/Ticker'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
+import VideoSection from './components/VideoSection'
 import Tracks from './components/Tracks'
 import Curriculum from './components/Curriculum'
-import Stats from './components/Stats'
-import JoinCTA from './components/JoinCTA'
+import InstitutionsProblem from './components/InstitutionsProblem'
+import FounderQuote from './components/FounderQuote'
+import Locations from './components/Locations'
+import HowItWorks from './components/HowItWorks'
+import SpotlightLab from './components/SpotlightLab'
+import Mentors from './components/Mentors'
+import BuilderCTA from './components/BuilderCTA'
+import InstitutionsContact from './components/InstitutionsContact'
 import Footer from './components/Footer'
 
 export default function App() {
@@ -14,10 +21,17 @@ export default function App() {
       <Ticker />
       <Navbar />
       <Hero />
+      <VideoSection />
       <Tracks />
       <Curriculum />
-      <Stats />
-      <JoinCTA />
+      <InstitutionsProblem />
+      <FounderQuote />
+      <Locations />
+      <HowItWorks />
+      <SpotlightLab />
+      <Mentors />
+      <BuilderCTA />
+      <InstitutionsContact />
       <Footer />
     </div>
   )

@@ -1,6 +1,6 @@
-# LEAP Startup School — Website
+# LEAP Startup School — Full Website Replica
 
-A pixel-faithful React replica of [leapstartup.com](https://www.leapstartup.com) built with React + Vite, featuring a custom crimson/green color theme with ultra-3D depth effects.
+A complete React replica of [leapstartup.com](https://www.leapstartup.com) built with React + Vite, featuring a custom crimson/green color theme and ultra-3D depth effects.
 
 ## Tech Stack
 - **React 19** + **Vite 6**
@@ -19,35 +19,35 @@ A pixel-faithful React replica of [leapstartup.com](https://www.leapstartup.com)
 | Rose | `#DBAAA7` | Body text muted |
 | Lavender | `#BE91BE` | Creator track |
 
-## 3D/Design Effects
-- CSS `perspective` + `rotateX/Y` tilt cards on hover
-- Multi-layer `box-shadow` radial glows
-- `backdrop-filter: blur` glassmorphism panels
-- Animated radial gradient mesh background
-- Floating cohort badge with pulse glow animation
-- Shimmer text animation on hero subtitle
-- Scrolling ticker + pill tracks
+## All Sections (in order)
+1. **Ticker** — Scrolling announcement bar (red gradient bg)
+2. **Navbar** — Sticky glassmorphism nav with mobile hamburger
+3. **Hero** — Full-viewport hero, cohort badge, scrolling pills
+4. **VideoSection** — YouTube embed of LEAP cohort intro
+5. **Tracks** — Three program tracks with Unsplash images (Founder/Builder/Creator)
+6. **Curriculum** — 6-phase interactive accordion with "In Class" / "Out Class" tabs
+7. **InstitutionsProblem** — "Strong Foundations" problem/solution split
+8. **FounderQuote** — Shaurya Gaikwad quote with photo
+9. **Locations** — Maharashtra SVG map + 6 regional hubs
+10. **HowItWorks** — 5-step vertical timeline "Learn by Building"
+11. **SpotlightLab** — Dual-row scrolling photo gallery
+12. **Mentors** — 6 mentor cards with real photos from postimg.cc
+13. **BuilderCTA** — "BECOME A BUILDER. NOT JUST A GRADUATE."
+14. **InstitutionsContact** — Email/call + Google Forms inquiry
+15. **Footer** — Brand, links, credits
 
-## Project Structure
-```
-src/
-  components/
-    Ticker.jsx       — Scrolling announcement bar
-    Navbar.jsx       — Sticky nav with mobile hamburger
-    Hero.jsx         — Full-viewport hero with cohort badge
-    Tracks.jsx       — Three program tracks (Founder/Builder/Creator)
-    Curriculum.jsx   — 6-phase interactive curriculum accordion
-    Stats.jsx        — Stats grid + testimonials
-    JoinCTA.jsx      — Call-to-action section
-    Footer.jsx       — Footer with link columns
-  App.jsx
-  index.css          — Global styles, Tailwind, animations
-index.html
-vite.config.js       — Port 5000, host 0.0.0.0, Tailwind plugin
-```
+## 3D/Design Effects
+- CSS perspective tilt cards on hover
+- Multi-layer radial glow box-shadows
+- Glassmorphism panels (backdrop-filter: blur)
+- Pulsing animated cohort badge
+- Shimmer text animation
+- Dual-direction scrolling gallery rows
+- Animated SVG Maharashtra map with pulsing city dots
+- Radial gradient mesh backgrounds
 
 ## Dev Server
-Runs on port 5000. Start with: `npm run dev`
+Port 5000. Start: `npm run dev`
 
 ## About LEAP
-LEAP is India's First Practical Startup School, founded by Shaurya Gaikwad (14-year-old entrepreneur, Young Entrepreneur of the Year 2024, Microsoft Learn Student Ambassador). Cohort-based, 3 tracks: The Founder, The Builder, The Creator.
+India's First Practical Startup School, founded by Shaurya Gaikwad (@shauryahelps). Cohort-based, 24-week program, 3 tracks: The Founder, The Builder, The Creator.
