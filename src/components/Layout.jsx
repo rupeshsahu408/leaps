@@ -3,6 +3,7 @@ import Ticker from './Ticker'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import ScrollToTop from './ScrollToTop'
+import ZyntraFloatingTag from './ZyntraFloatingTag'
 
 export default function Layout() {
   return (
@@ -14,6 +15,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <ZyntraFloatingTag />
     </div>
   )
 }
