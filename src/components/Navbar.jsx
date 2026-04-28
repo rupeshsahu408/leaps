@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import SocialBar from './SocialBar'
 
 const links = [
   { label: 'Home', to: '/' },
@@ -81,10 +82,12 @@ export default function Navbar() {
           })}
         </div>
 
-        {/* CTA */}
+        {/* Right cluster: socials + CTA */}
+        <div className="desktop-cta" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <SocialBar size={34} />
         <Link
           to="/join"
-          className="btn-3d desktop-cta"
+          className="btn-3d"
           style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontWeight: 700,
@@ -101,6 +104,7 @@ export default function Navbar() {
         >
           Join Now
         </Link>
+        </div>
 
         {/* Hamburger */}
         <button
@@ -149,6 +153,9 @@ export default function Navbar() {
           >
             Join Now
           </Link>
+          <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '0.25rem' }}>
+            <SocialBar size={40} />
+          </div>
         </div>
       )}
 

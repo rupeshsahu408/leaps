@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import PageHeader from '../components/PageHeader'
 import Mentors from '../components/Mentors'
+import FounderSocial from '../components/FounderSocial'
 import SpotlightLab from '../components/SpotlightLab'
 import FounderQuote from '../components/FounderQuote'
 
@@ -99,6 +100,7 @@ export default function CommunityPage() {
 
       <SpotlightLab />
       <Mentors />
+      <FounderSocial />
 
       {/* Upcoming events */}
       <section style={{ padding: '5rem 1.5rem', background: 'rgba(0,0,0,0.18)' }}>
