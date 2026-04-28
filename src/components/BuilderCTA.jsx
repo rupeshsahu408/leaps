@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 export default function BuilderCTA() {
   return (
     <section
@@ -47,8 +49,8 @@ export default function BuilderCTA() {
         </p>
 
         <div style={{ display: 'flex', gap: '1.25rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-          <a
-            href="#join"
+          <Link
+            to="/join"
             className="btn-3d pulse-glow"
             style={{
               fontFamily: "'Space Grotesk',sans-serif",
@@ -62,9 +64,9 @@ export default function BuilderCTA() {
           >
             JOIN THE COHORT
             <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M4 9h10M10 5l4 4-4 4"/></svg>
-          </a>
-          <a
-            href="#curriculum"
+          </Link>
+          <Link
+            to="/platform"
             className="btn-3d"
             style={{
               fontFamily: "'Space Grotesk',sans-serif",
@@ -76,7 +78,7 @@ export default function BuilderCTA() {
             }}
           >
             View Curriculum
-          </a>
+          </Link>
         </div>
       </div>
     </section>

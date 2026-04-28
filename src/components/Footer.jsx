@@ -1,8 +1,30 @@
+import { Link } from 'react-router-dom'
+
 const footerLinks = {
-  Platform: ['The Founder', 'The Builder', 'The Creator', 'Curriculum'],
-  Company: ['About LEAP', 'Locations', 'Institutions', 'Contact'],
-  Community: ['Alumni Network', 'Mentors', 'Investors', 'Blog'],
-  Connect: ['YouTube', 'Instagram', 'LinkedIn', 'Twitter'],
+  Platform: [
+    { label: 'The Founder', to: '/platform' },
+    { label: 'The Builder', to: '/platform' },
+    { label: 'The Creator', to: '/platform' },
+    { label: 'Curriculum', to: '/platform' },
+  ],
+  Company: [
+    { label: 'Home', to: '/' },
+    { label: 'Locations', to: '/locations' },
+    { label: 'Institutions', to: '/institutions' },
+    { label: 'Contact', to: '/contact' },
+  ],
+  Community: [
+    { label: 'Alumni Network', to: '/community' },
+    { label: 'Mentors', to: '/community' },
+    { label: 'Events', to: '/community' },
+    { label: 'Join Cohort', to: '/join' },
+  ],
+  Connect: [
+    { label: 'YouTube', href: 'https://www.youtube.com/channel/UCysjQMbWQgOVgbafTUGrYJQ', external: true },
+    { label: 'Instagram', href: 'https://www.instagram.com/shauryahelps/', external: true },
+    { label: 'LinkedIn', href: '#', external: true },
+    { label: 'Twitter', href: '#', external: true },
+  ],
 }
 
 export default function Footer() {
@@ -19,37 +41,49 @@ export default function Footer() {
 
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '4rem 1.5rem 2rem', position: 'relative', zIndex: 10 }}>
         {/* Top */}
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: '2.5rem', marginBottom: '3rem' }}>
+        <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1fr', gap: '2.5rem', marginBottom: '3rem' }}>
           {/* Brand */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem', textDecoration: 'none' }}>
               <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg, #CD1C18, #9B1313)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(205,28,24,0.4)', fontFamily: "'Space Grotesk',sans-serif", fontWeight: 800, fontSize: '0.95rem', color: '#fff' }}>L</div>
               <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: '1.1rem', color: '#fff' }}>
                 LEAP<span style={{ color: '#A8DCAB' }}>.</span>
               </span>
-            </div>
+            </Link>
             <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, maxWidth: 260, marginBottom: '1.25rem' }}>
               India's First Practical Startup School. Bridge the gap between theory and execution.
             </p>
-            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(168,220,171,0.08)', border: '1px solid rgba(168,220,171,0.2)', borderRadius: 999, padding: '5px 12px' }}>
+            <Link
+              to="/join"
+              style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(168,220,171,0.08)', border: '1px solid rgba(168,220,171,0.2)', borderRadius: 999, padding: '5px 12px' }}
+            >
               <span className="dot-live" />
               <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.7rem', fontWeight: 700, color: '#A8DCAB', letterSpacing: '0.1em', textTransform: 'uppercase' }}>Cohort 2 Open</span>
-            </div>
+            </Link>
           </div>
 
           {/* Link columns */}
           {Object.entries(footerLinks).map(([cat, links]) => (
             <div key={cat}>
               <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.72rem', fontWeight: 700, color: '#FFA896', letterSpacing: '0.12em', textTransform: 'uppercase', marginBottom: '1rem' }}>{cat}</p>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
                 {links.map(l => (
-                  <li key={l}>
-                    <a href="#" style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)', textDecoration: 'none', transition: 'color 0.2s', display: 'block' }}
-                      onMouseEnter={e => e.target.style.color = '#A8DCAB'}
-                      onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.45)'}
-                    >
-                      {l}
-                    </a>
+                  <li key={l.label}>
+                    {l.external ? (
+                      <a href={l.href} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)', textDecoration: 'none', transition: 'color 0.2s', display: 'block' }}
+                        onMouseEnter={e => e.target.style.color = '#A8DCAB'}
+                        onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.45)'}
+                      >
+                        {l.label}
+                      </a>
+                    ) : (
+                      <Link to={l.to} style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)', textDecoration: 'none', transition: 'color 0.2s', display: 'block' }}
+                        onMouseEnter={e => e.target.style.color = '#A8DCAB'}
+                        onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.45)'}
+                      >
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -85,10 +119,10 @@ export default function Footer() {
 
       <style>{`
         @media (max-width: 900px) {
-          footer .grid-cols-5 { grid-template-columns: 1fr 1fr !important; }
+          .footer-grid { grid-template-columns: 1fr 1fr !important; }
         }
         @media (max-width: 600px) {
-          footer .grid-cols-5 { grid-template-columns: 1fr !important; }
+          .footer-grid { grid-template-columns: 1fr !important; }
         }
       `}</style>
     </footer>

@@ -46,6 +46,19 @@ A complete React replica of [leapstartup.com](https://www.leapstartup.com) built
 - Animated SVG Maharashtra map with pulsing city dots
 - Radial gradient mesh backgrounds
 
+## Routing (Multi-Page)
+React Router v7. Routes wrapped by a shared `Layout` (Ticker + Navbar + Footer + ScrollToTop):
+- `/` → HomePage (full landing composition)
+- `/platform` → PlatformPage (Tracks + Curriculum + How It Works + stats)
+- `/locations` → LocationsPage (Locations + detailed regional cards)
+- `/institutions` → InstitutionsPage (Problem split + benefits + 4-step partnership flow + inquiry)
+- `/community` → CommunityPage (Six pillars + SpotlightLab + Mentors + upcoming events + founder quote)
+- `/contact` → ContactPage (4 contact cards + working contact form + role-based info)
+- `/join` → JoinPage (Track selector + cohort details + apply CTA)
+- `*` → NotFoundPage
+
+Shared building blocks live in `src/components/` (Hero, Tracks, Curriculum, Locations, etc.). Page-level layouts live in `src/pages/`. A reusable `PageHeader` powers the inner-page hero band.
+
 ## Dev Server
 Port 5000. Start: `npm run dev`
 

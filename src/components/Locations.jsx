@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const regions = [
   {
     name: 'Mumbai Region',
@@ -193,10 +195,10 @@ export default function Locations() {
               <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.8rem', fontWeight: 600, color: 'rgba(168,220,171,0.6)', marginBottom: '0.5rem' }}>
                 Expanding Soon — Is your city next?
               </p>
-              <a href="#institutions" style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.78rem', fontWeight: 700, color: '#A8DCAB', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
+              <Link to="/institutions" style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.78rem', fontWeight: 700, color: '#A8DCAB', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.35rem' }}>
                 Partner with us
                 <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M2 6h8M6 2l4 4-4 4"/></svg>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

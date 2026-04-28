@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const steps = [
   {
     num: '01',
@@ -139,8 +141,8 @@ export default function HowItWorks() {
 
         {/* Bottom CTA */}
         <div style={{ textAlign: 'center', marginTop: '4rem' }}>
-          <a
-            href="#join"
+          <Link
+            to="/join"
             className="btn-3d"
             style={{
               fontFamily: "'Space Grotesk',sans-serif",
@@ -155,7 +157,7 @@ export default function HowItWorks() {
           >
             Experience the Journey
             <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

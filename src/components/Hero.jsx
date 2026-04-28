@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const pills = [
   'Build Real Startups', '70% Action', 'First Sale in 8 Weeks',
   'Demo Day', 'Investor Pitch', 'MVP Launch', 'Real Revenue',
@@ -110,8 +112,8 @@ export default function Hero() {
           <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.7rem', fontWeight: 600, color: 'rgba(255,255,255,0.5)', letterSpacing: '0.12em', textTransform: 'uppercase', marginTop: 4 }}>
             Open for Joining
           </p>
-          <a
-            href="#join"
+          <Link
+            to="/join"
             className="btn-3d"
             style={{
               marginTop: '1rem',
@@ -126,7 +128,7 @@ export default function Hero() {
             <svg width="16" height="16" fill="none" stroke="#A8DCAB" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M3 8h10M9 4l4 4-4 4"/>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
 
@@ -181,8 +183,8 @@ export default function Hero() {
 
           {/* CTAs */}
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-            <a
-              href="#join"
+            <Link
+              to="/join"
               className="btn-3d"
               style={{
                 fontFamily: "'Space Grotesk',sans-serif",
@@ -204,9 +206,9 @@ export default function Hero() {
               <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M3 8h10M9 4l4 4-4 4"/>
               </svg>
-            </a>
-            <a
-              href="#tracks"
+            </Link>
+            <Link
+              to="/platform"
               className="btn-3d"
               style={{
                 fontFamily: "'Space Grotesk',sans-serif",
@@ -222,7 +224,7 @@ export default function Hero() {
               }}
             >
               Explore Tracks
-            </a>
+            </Link>
           </div>
         </div>
       </div>

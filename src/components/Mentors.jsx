@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const mentors = [
   {
     name: 'Indraneel Chitale',
@@ -137,8 +139,8 @@ export default function Mentors() {
           <p style={{ fontSize: '0.9rem', color: 'rgba(219,170,167,0.65)' }}>
             Get mentored by the best in the industry.
           </p>
-          <a
-            href="#join"
+          <Link
+            to="/join"
             className="btn-3d"
             style={{
               fontFamily: "'Space Grotesk',sans-serif",
@@ -150,7 +152,7 @@ export default function Mentors() {
             }}
           >
             Apply Now
-          </a>
+          </Link>
           <p style={{ fontSize: '0.78rem', color: 'rgba(255,255,255,0.3)' }}>
             ✦ TO BE ANNOUNCED SOON — Stay tuned for the reveal
           </p>

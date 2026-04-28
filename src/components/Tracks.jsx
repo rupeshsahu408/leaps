@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 const tracks = [
   {
     id: 'founder',
@@ -175,8 +177,8 @@ export default function Tracks() {
                   </ul>
                 </div>
 
-                <a
-                  href="#curriculum"
+                <Link
+                  to="/platform"
                   style={{
                     marginTop: 'auto', display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
                     fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: '0.82rem',
@@ -188,7 +190,7 @@ export default function Tracks() {
                 >
                   Explore Full Curriculum
                   <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 7h8M7 3l4 4-4 4"/></svg>
-                </a>
+                </Link>
               </div>
             </div>
           ))}
