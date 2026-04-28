@@ -226,3 +226,87 @@ h1, h2, h3, h4, h5 {
   animation: scrollPills 18s linear infinite;
   gap: 0.75rem;
 }
+
+/* ─────────────────────────────────────────────────────────────
+   GLOBAL MOBILE RESPONSIVENESS
+   ───────────────────────────────────────────────────────────── */
+
+/* Force inline-styled fixed-column grids to a single column.
+   This catches all `gridTemplateColumns: 'repeat(N, 1fr)'` inline styles. */
+@media (max-width: 760px) {
+  [style*="repeat(4, 1fr)"]:not(.keep-grid),
+  [style*="repeat(3, 1fr)"]:not(.keep-grid),
+  [style*="repeat(2, 1fr)"]:not(.keep-grid) {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Reduce massive section padding on mobile */
+  [style*="padding: '7rem 1.5rem'"],
+  [style*="padding: '6rem 1.5rem'"],
+  [style*="padding: '8rem 1.5rem'"] {
+    padding: 4rem 1.25rem !important;
+  }
+  [style*="padding: '7rem 1.5rem 4rem'"],
+  [style*="padding: '5rem 1.5rem 3rem'"],
+  [style*="padding: '6rem 1.5rem 3rem'"] {
+    padding: 3.5rem 1.25rem 2.5rem !important;
+  }
+  [style*="padding: '5rem 1.5rem'"] {
+    padding: 3.5rem 1.25rem !important;
+  }
+  [style*="padding: '4rem 1.5rem 2rem'"] {
+    padding: 3rem 1.25rem 1.5rem !important;
+  }
+
+  /* Reduce the giant section bottom gaps that come from hr-gradient marginBottom */
+  hr.hr-gradient[style*="marginBottom: '5rem'"],
+  hr.hr-gradient[style*="margin-bottom: 5rem"] {
+    margin-bottom: 2.5rem !important;
+  }
+  hr.hr-gradient[style*="marginBottom: '4rem'"],
+  hr.hr-gradient[style*="margin-bottom: 4rem"] {
+    margin-bottom: 2rem !important;
+  }
+}
+
+/* Scale down a smaller breakpoint further */
+@media (max-width: 460px) {
+  [style*="padding: '7rem 1.5rem'"],
+  [style*="padding: '6rem 1.5rem'"],
+  [style*="padding: '8rem 1.5rem'"],
+  [style*="padding: '5rem 1.5rem'"] {
+    padding: 3rem 1rem !important;
+  }
+}
+
+/* Disable card tilt and 3-D button hover transforms on touch devices —
+   these caused weird layout shifts and hover-stuck states on mobile */
+@media (hover: none), (max-width: 760px) {
+  .tilt-card:hover {
+    transform: none !important;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.45) !important;
+  }
+  .btn-3d:hover {
+    transform: none !important;
+  }
+}
+
+/* Make tap targets comfortable on small screens */
+@media (max-width: 760px) {
+  a, button { -webkit-tap-highlight-color: transparent; }
+}
+
+/* Default body sizing tweak for very small screens */
+@media (max-width: 380px) {
+  html { font-size: 15px; }
+}
+
+/* ── Ticker on mobile: smaller gap + faster scroll feel ── */
+@media (max-width: 600px) {
+  .ticker-track > span { margin-right: 1.5rem !important; font-size: 0.65rem !important; }
+}
+
+/* ── Navbar mobile menu container always visible when open ── */
+@media (max-width: 900px) {
+  body { -webkit-text-size-adjust: 100%; }
+}

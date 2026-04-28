@@ -109,7 +109,7 @@ export default function Navbar() {
         {/* Hamburger */}
         <button
           onClick={() => setOpen(!open)}
-          style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', color: '#fff', padding: 4 }}
+          style={{ display: 'none', background: 'rgba(205,28,24,0.12)', border: '1px solid rgba(205,28,24,0.25)', borderRadius: 10, cursor: 'pointer', color: '#fff', padding: '8px 10px', alignItems: 'center', justifyContent: 'center' }}
           className="hamburger"
           aria-label="Toggle menu"
         >
@@ -162,8 +162,11 @@ export default function Navbar() {
       <style>{`
         @media (max-width: 900px) {
           .desktop-nav { display: none !important; }
-          .hamburger { display: block !important; }
+          .hamburger { display: inline-flex !important; }
           .desktop-cta { display: none !important; }
+        }
+        @media (max-width: 480px) {
+          nav .container-row { padding: 0 1rem !important; }
         }
       `}</style>
     </nav>

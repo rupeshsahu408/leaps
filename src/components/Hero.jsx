@@ -88,13 +88,13 @@ export default function Hero() {
         }}
       />
 
-      {/* Cohort badge — top right */}
+      {/* Cohort badge — top right (hidden on mobile) */}
       <div
+        className="float-anim hero-badge"
         style={{
           position: 'absolute', right: '3rem', top: '12%',
           textAlign: 'right', zIndex: 10,
         }}
-        className="float-anim"
       >
         <div
           className="glass-dark pulse-glow"
@@ -133,7 +133,7 @@ export default function Hero() {
       </div>
 
       {/* Main content */}
-      <div style={{ position: 'relative', zIndex: 10, maxWidth: 1200, margin: '0 auto', padding: '5rem 1.5rem 3rem', width: '100%' }}>
+      <div className="hero-content" style={{ position: 'relative', zIndex: 10, maxWidth: 1200, margin: '0 auto', padding: '5rem 1.5rem 3rem', width: '100%' }}>
         <div style={{ maxWidth: 660 }}>
           {/* Tag */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.75rem' }}>
@@ -182,7 +182,7 @@ export default function Hero() {
           </p>
 
           {/* CTAs */}
-          <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <div className="hero-cta-row" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
             <Link
               to="/join"
               className="btn-3d"
@@ -235,6 +235,17 @@ export default function Hero() {
           {pills.map((p, i) => <Pill key={i} label={p} />)}
         </div>
       </div>
+
+      <style>{`
+        @media (max-width: 900px) {
+          .hero-badge { display: none !important; }
+          .hero-content { padding: 3rem 1.25rem 1.5rem !important; }
+        }
+        @media (max-width: 600px) {
+          #home .hero-cta-row { gap: 0.65rem !important; }
+          #home .hero-cta-row > a { width: 100% !important; justify-content: center !important; padding: 13px 22px !important; }
+        }
+      `}</style>
     </section>
   )
 }
