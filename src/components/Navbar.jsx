@@ -33,25 +33,29 @@ export default function Navbar() {
     >
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: 68 }}>
         {/* Logo */}
-        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div
             style={{
-              width: 40, height: 40,
-              borderRadius: 10,
-              background: 'linear-gradient(135deg, #CD1C18, #9B1313)',
+              width: 44, height: 44,
+              borderRadius: '50%',
+              background: '#fff',
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 4px 16px rgba(205,28,24,0.5)',
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 800,
-              fontSize: '1rem',
-              color: '#fff',
-              letterSpacing: '-0.02em',
+              boxShadow: '0 4px 18px rgba(205,28,24,0.45), 0 0 0 1.5px rgba(205,28,24,0.4), 0 0 24px rgba(255,168,150,0.25)',
+              padding: 3,
+              flexShrink: 0,
             }}
           >
-            L
+            <img
+              src="/leap-logo.png"
+              alt="LEAP Startup"
+              style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '50%', display: 'block' }}
+            />
           </div>
-          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: '1.15rem', color: '#fff', letterSpacing: '-0.02em' }}>
+          <span style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 800, fontSize: '1.18rem', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>
             LEAP<span style={{ color: '#A8DCAB' }}>.</span>
+            <span style={{ display: 'block', fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.55rem', fontWeight: 700, color: '#FFA896', letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: 2 }}>
+              Startup School
+            </span>
           </span>
         </Link>
 

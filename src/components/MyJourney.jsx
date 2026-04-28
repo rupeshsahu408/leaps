@@ -1,3 +1,5 @@
+import { useState, useEffect, useCallback } from 'react'
+
 const milestones = [
   {
     year: '2022',
@@ -47,7 +49,11 @@ const milestones = [
   },
 ]
 
-// Recreated from the live @shauryahelps grid — links go to the public profile
+// Recreated from the live @shauryahelps grid.
+// `embedId` = Instagram reel/post shortcode (the bit in the URL after /reel/ or /p/).
+// To make a card play the actual reel in the modal, set its embedId
+// (e.g. for https://www.instagram.com/reel/Cxyz1234/ → embedId: 'Cxyz1234').
+// When embedId is null/empty, the modal shows a rich preview with an "Open on Instagram" button.
 const reels = [
   {
     title: 'AI तुमचा Job घेणार? की नवे Jobs देणार?',
@@ -56,6 +62,7 @@ const reels = [
     likes: '8.2K',
     bg: 'linear-gradient(160deg, #1a0d2e 0%, #2d1b4e 50%, #4a1654 100%)',
     accent: '#BE91BE',
+    embedId: '',
   },
   {
     title: 'Women Safety = Big Business?',
@@ -64,6 +71,7 @@ const reels = [
     likes: '5.4K',
     bg: 'linear-gradient(160deg, #2d0a14 0%, #4a1622 50%, #7d1a2e 100%)',
     accent: '#FFA896',
+    embedId: '',
   },
   {
     title: 'Google मोफत शिकवतो?',
@@ -72,6 +80,7 @@ const reels = [
     likes: '12.1K',
     bg: 'linear-gradient(160deg, #0a1a2e 0%, #142d4a 50%, #1e4a7d 100%)',
     accent: '#7DB3E8',
+    embedId: '',
   },
   {
     title: 'You stepped out of school',
@@ -80,6 +89,7 @@ const reels = [
     likes: '4.8K',
     bg: 'linear-gradient(160deg, #1a1a0a 0%, #3d2e14 50%, #6b4a1e 100%)',
     accent: '#E8C77D',
+    embedId: '',
   },
   {
     title: 'Startup School • LEAP Action Cohort',
@@ -88,6 +98,7 @@ const reels = [
     likes: '18.6K',
     bg: 'linear-gradient(160deg, #38000A 0%, #6b1a1a 50%, #9B1313 100%)',
     accent: '#FFA896',
+    embedId: '',
   },
   {
     title: 'अगर आपको आपका Khud ka business…',
@@ -96,10 +107,15 @@ const reels = [
     likes: '9.7K',
     bg: 'linear-gradient(160deg, #0a1a14 0%, #14382e 50%, #1e6b54 100%)',
     accent: '#A8DCAB',
+    embedId: '',
   },
 ]
 
 const PROFILE_URL = 'https://www.instagram.com/shauryahelps/'
+
+function reelInstagramUrl(reel) {
+  return reel.embedId ? `https://www.instagram.com/reel/${reel.embedId}/` : PROFILE_URL
+}
 
 function PlayIcon({ size = 22 }) {
   return (
@@ -109,17 +125,17 @@ function PlayIcon({ size = 22 }) {
   )
 }
 
-function ReelCard({ reel }) {
+function ReelCard({ reel, onOpen }) {
   return (
-    <a
-      href={PROFILE_URL}
-      target="_blank"
-      rel="noopener noreferrer"
+    <button
+      type="button"
+      onClick={onOpen}
       className="reel-card"
-      aria-label={`Watch on Instagram: ${reel.title}`}
+      aria-label={`Play reel: ${reel.title}`}
       style={{
         position: 'relative',
         display: 'block',
+        width: '100%',
         aspectRatio: '9 / 16',
         borderRadius: 18,
         overflow: 'hidden',
@@ -128,6 +144,11 @@ function ReelCard({ reel }) {
         border: '1px solid rgba(255,255,255,0.08)',
         boxShadow: `0 12px 40px rgba(0,0,0,0.45), 0 0 0 1px ${reel.accent}30`,
         transition: 'transform 0.35s cubic-bezier(0.23,1,0.32,1), box-shadow 0.35s ease',
+        cursor: 'pointer',
+        padding: 0,
+        font: 'inherit',
+        color: 'inherit',
+        textAlign: 'left',
       }}
       onMouseEnter={e => {
         e.currentTarget.style.transform = 'translateY(-6px) scale(1.02)'
@@ -260,11 +281,224 @@ function ReelCard({ reel }) {
           </span>
         </div>
       </div>
-    </a>
+    </button>
+  )
+}
+
+function ReelModal({ reel, onClose }) {
+  const [iframeLoaded, setIframeLoaded] = useState(false)
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose() }
+    window.addEventListener('keydown', onKey)
+    const prevOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      window.removeEventListener('keydown', onKey)
+      document.body.style.overflow = prevOverflow
+    }
+  }, [onClose])
+
+  if (!reel) return null
+
+  const hasEmbed = !!reel.embedId
+  const embedSrc = hasEmbed
+    ? `https://www.instagram.com/reel/${reel.embedId}/embed/captioned/`
+    : null
+  const igUrl = reelInstagramUrl(reel)
+
+  return (
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Reel: ${reel.title}`}
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        background: 'rgba(8,0,2,0.78)',
+        backdropFilter: 'blur(14px)',
+        WebkitBackdropFilter: 'blur(14px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '1.5rem',
+        animation: 'reelFade 0.25s ease-out',
+      }}
+    >
+      <div
+        onClick={e => e.stopPropagation()}
+        style={{
+          position: 'relative',
+          width: '100%',
+          maxWidth: 420,
+          maxHeight: 'calc(100vh - 3rem)',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '1rem',
+          animation: 'reelPop 0.32s cubic-bezier(0.16,1,0.3,1)',
+        }}
+      >
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close reel player"
+          style={{
+            position: 'absolute',
+            top: -14, right: -14,
+            width: 38, height: 38,
+            borderRadius: '50%',
+            background: '#fff',
+            color: '#000',
+            border: 'none',
+            cursor: 'pointer',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 6px 20px rgba(0,0,0,0.5)',
+            zIndex: 5,
+            fontWeight: 700,
+            fontSize: '1rem',
+          }}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M6 6l12 12M6 18L18 6" />
+          </svg>
+        </button>
+
+        {/* Player frame (9:16) */}
+        <div
+          style={{
+            position: 'relative',
+            width: '100%',
+            aspectRatio: '9 / 16',
+            maxHeight: 'calc(100vh - 9rem)',
+            borderRadius: 22,
+            overflow: 'hidden',
+            background: reel.bg,
+            border: `1px solid ${reel.accent}40`,
+            boxShadow: `0 30px 80px rgba(0,0,0,0.6), 0 0 0 1px ${reel.accent}30, 0 0 60px ${reel.accent}25`,
+          }}
+        >
+          {hasEmbed ? (
+            <>
+              {!iframeLoaded && (
+                <div style={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.85rem', letterSpacing: '0.08em' }}>
+                  Loading reel…
+                </div>
+              )}
+              <iframe
+                src={embedSrc}
+                title={reel.title}
+                allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                allowFullScreen
+                onLoad={() => setIframeLoaded(true)}
+                style={{
+                  position: 'absolute',
+                  inset: 0,
+                  width: '100%',
+                  height: '100%',
+                  border: 0,
+                  background: '#000',
+                }}
+              />
+            </>
+          ) : (
+            // Rich preview when no embed ID is set yet
+            <div style={{ position: 'absolute', inset: 0, padding: '1.5rem', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <div style={{ display: 'inline-flex', alignSelf: 'flex-start', alignItems: 'center', gap: '0.4rem', padding: '5px 11px', borderRadius: 999, background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)', border: '1px solid rgba(255,255,255,0.12)' }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none">
+                  <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="#fff" strokeWidth="1.8" />
+                  <path d="M9 8.5v7l6-3.5-6-3.5z" fill="#fff" />
+                </svg>
+                <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.62rem', fontWeight: 700, color: '#fff', letterSpacing: '0.14em', textTransform: 'uppercase' }}>Reel preview</span>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem', textAlign: 'center', padding: '0 0.5rem' }}>
+                <div style={{ width: 78, height: 78, borderRadius: '50%', background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.18)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', boxShadow: '0 12px 30px rgba(0,0,0,0.5)' }}>
+                  <PlayIcon size={32} />
+                </div>
+                <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 800, fontSize: '1.1rem', color: '#fff', lineHeight: 1.3, letterSpacing: '-0.01em', margin: 0 }}>
+                  {reel.title}
+                </p>
+                <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.78rem', color: reel.accent, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', margin: 0 }}>
+                  {reel.tagline}
+                </p>
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                <a
+                  href={igUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                    background: 'linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%)',
+                    color: '#fff',
+                    fontFamily: "'Space Grotesk',sans-serif",
+                    fontWeight: 700, fontSize: '0.85rem',
+                    padding: '12px 18px',
+                    borderRadius: 12,
+                    textDecoration: 'none',
+                    boxShadow: '0 10px 26px rgba(221,42,123,0.4)',
+                  }}
+                >
+                  Watch full reel on Instagram
+                  <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 11l6-6M5 5h6v6" /></svg>
+                </a>
+                <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.65rem', color: 'rgba(255,255,255,0.55)', textAlign: 'center', margin: 0, letterSpacing: '0.04em' }}>
+                  {reel.views} views · {reel.likes} likes
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Footer caption row */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '1rem', color: '#fff', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', minWidth: 0 }}>
+            <div style={{ width: 36, height: 36, borderRadius: '50%', background: '#fff', padding: 2, flexShrink: 0, boxShadow: '0 4px 14px rgba(205,28,24,0.4)' }}>
+              <img src="/leap-logo.png" alt="LEAP" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '50%', display: 'block' }} />
+            </div>
+            <div style={{ minWidth: 0 }}>
+              <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: '0.85rem', color: '#fff', margin: 0 }}>@shauryahelps</p>
+              <p style={{ fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.7rem', color: 'rgba(255,255,255,0.55)', margin: 0 }}>{reel.tagline}</p>
+            </div>
+          </div>
+          <a
+            href={igUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              fontFamily: "'Space Grotesk',sans-serif",
+              fontSize: '0.72rem',
+              fontWeight: 700,
+              color: '#FFA896',
+              textDecoration: 'none',
+              letterSpacing: '0.06em',
+              textTransform: 'uppercase',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 5,
+            }}
+          >
+            Open on Instagram
+            <svg width="11" height="11" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 11l6-6M5 5h6v6" /></svg>
+          </a>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes reelFade { from { opacity: 0 } to { opacity: 1 } }
+        @keyframes reelPop {
+          from { opacity: 0; transform: translateY(20px) scale(0.95) }
+          to { opacity: 1; transform: translateY(0) scale(1) }
+        }
+      `}</style>
+    </div>
   )
 }
 
 export default function MyJourney() {
+  const [activeReel, setActiveReel] = useState(null)
+  const closeReel = useCallback(() => setActiveReel(null), [])
+
   return (
     <section
       id="my-journey"
@@ -512,7 +746,7 @@ export default function MyJourney() {
 
         {/* Reels grid */}
         <div className="reels-grid keep-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1.25rem' }}>
-          {reels.map((r, i) => <ReelCard key={i} reel={r} />)}
+          {reels.map((r, i) => <ReelCard key={i} reel={r} onOpen={() => setActiveReel(r)} />)}
         </div>
 
         {/* Bottom mini-stat strip */}
@@ -570,7 +804,10 @@ export default function MyJourney() {
         @media (max-width: 460px) {
           #my-journey .reels-grid { grid-template-columns: 1fr 1fr !important; gap: 0.75rem !important; }
         }
+        .reel-card:focus-visible { outline: 2px solid #FFA896; outline-offset: 3px; }
       `}</style>
+
+      {activeReel && <ReelModal reel={activeReel} onClose={closeReel} />}
     </section>
   )
 }

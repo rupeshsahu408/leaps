@@ -39,10 +39,15 @@ export default function Footer() {
         <div className="footer-grid" style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr 1.2fr', gap: '2.5rem', marginBottom: '3rem' }}>
           {/* Brand */}
           <div>
-            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1.25rem', textDecoration: 'none' }}>
-              <div style={{ width: 38, height: 38, borderRadius: 10, background: 'linear-gradient(135deg, #CD1C18, #9B1313)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 12px rgba(205,28,24,0.4)', fontFamily: "'Space Grotesk',sans-serif", fontWeight: 800, fontSize: '0.95rem', color: '#fff' }}>L</div>
-              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: '1.1rem', color: '#fff' }}>
+            <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.7rem', marginBottom: '1.25rem', textDecoration: 'none' }}>
+              <div style={{ width: 50, height: 50, borderRadius: '50%', background: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 6px 20px rgba(205,28,24,0.4), 0 0 0 1.5px rgba(205,28,24,0.4), 0 0 30px rgba(255,168,150,0.2)', padding: 4, flexShrink: 0 }}>
+                <img src="/leap-logo.png" alt="LEAP Startup" style={{ width: '100%', height: '100%', objectFit: 'contain', borderRadius: '50%', display: 'block' }} />
+              </div>
+              <span style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 800, fontSize: '1.18rem', color: '#fff', letterSpacing: '-0.02em', lineHeight: 1 }}>
                 LEAP<span style={{ color: '#A8DCAB' }}>.</span>
+                <span style={{ display: 'block', fontFamily: "'Space Grotesk',sans-serif", fontSize: '0.58rem', fontWeight: 700, color: '#FFA896', letterSpacing: '0.22em', textTransform: 'uppercase', marginTop: 3 }}>
+                  Startup School
+                </span>
               </span>
             </Link>
             <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.45)', lineHeight: 1.7, maxWidth: 260, marginBottom: '1.25rem' }}>
