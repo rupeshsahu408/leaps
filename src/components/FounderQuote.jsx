@@ -24,7 +24,7 @@ export default function FounderQuote() {
           }}
         >
           {/* Left — founder photo */}
-          <div style={{ position: 'relative', overflow: 'hidden', minHeight: 420 }}>
+          <div className="founder-img-wrap" style={{ position: 'relative', overflow: 'hidden', minHeight: 420 }}>
             <img
               src="https://i.postimg.cc/Kzxqcf2z/IMG-4002.jpg"
               alt="Shaurya Gaikwad"
@@ -41,9 +41,9 @@ export default function FounderQuote() {
           </div>
 
           {/* Right — quote */}
-          <div style={{ padding: '3.5rem 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '1.75rem' }}>
+          <div className="founder-quote-body" style={{ padding: '3.5rem 3rem', display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: '1.75rem' }}>
             {/* Quote mark */}
-            <div style={{ fontSize: '5rem', lineHeight: 0.7, fontFamily: 'Georgia, serif', color: '#CD1C18', opacity: 0.6, userSelect: 'none' }}>"</div>
+            <div className="founder-quote-mark" style={{ fontSize: '5rem', lineHeight: 0.7, fontFamily: 'Georgia, serif', color: '#CD1C18', opacity: 0.6, userSelect: 'none' }}>"</div>
 
             <blockquote style={{ fontFamily: "'Space Grotesk',sans-serif", fontWeight: 700, fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', color: '#fff', lineHeight: 1.35, letterSpacing: '-0.02em', margin: 0 }}>
               When you're building a{' '}
@@ -64,7 +64,16 @@ export default function FounderQuote() {
       <style>{`
         @media (max-width: 820px) {
           .founder-grid { grid-template-columns: 1fr !important; }
-          .founder-img { min-height: 300px !important; }
+          .founder-img { min-height: 280px !important; }
+        }
+        @media (max-width: 760px) {
+          .founder-img-wrap { min-height: 280px !important; }
+          .founder-quote-body {
+            padding: 1.75rem 1.25rem !important;
+            gap: 1rem !important;
+          }
+          .founder-quote-body blockquote { font-size: 1.15rem !important; line-height: 1.4 !important; }
+          .founder-quote-mark { font-size: 3.5rem !important; }
         }
       `}</style>
     </section>

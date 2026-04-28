@@ -63,10 +63,10 @@ export default function Locations() {
         </div>
 
         {/* Map + Regions grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
+        <div className="loc-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '3rem', alignItems: 'start' }}>
           {/* Maharashtra visual map placeholder */}
           <div
-            className="tilt-card glass-dark"
+            className="tilt-card glass-dark loc-map-card"
             style={{
               borderRadius: 24,
               overflow: 'hidden',
@@ -206,7 +206,8 @@ export default function Locations() {
 
       <style>{`
         @media (max-width: 768px) {
-          #locations .loc-grid { grid-template-columns: 1fr !important; }
+          #locations .loc-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+          #locations .loc-map-card { min-height: 280px !important; padding: 1.25rem !important; }
         }
       `}</style>
     </section>

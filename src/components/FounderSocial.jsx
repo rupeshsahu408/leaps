@@ -263,6 +263,7 @@ export default function FounderSocial() {
 
                 {/* Stats */}
                 <div
+                  className="keep-grid"
                   style={{
                     display: 'grid',
                     gridTemplateColumns: 'repeat(3, 1fr)',

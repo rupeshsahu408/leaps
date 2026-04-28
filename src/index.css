@@ -228,85 +228,124 @@ h1, h2, h3, h4, h5 {
 }
 
 /* ─────────────────────────────────────────────────────────────
-   GLOBAL MOBILE RESPONSIVENESS
-   ───────────────────────────────────────────────────────────── */
+   GLOBAL MOBILE RESPONSIVENESS  (mobile-first, aggressive)
+   ─────────────────────────────────────────────────────────────
+   IMPORTANT: React renders inline-style strings WITHOUT inner
+   single quotes — `padding: '7rem 1.5rem'` becomes
+   `padding: 7rem 1.5rem;` in the DOM. Selectors here use that
+   exact substring (no inner quotes). */
 
-/* Force inline-styled fixed-column grids to a single column.
-   This catches all `gridTemplateColumns: 'repeat(N, 1fr)'` inline styles. */
+/* Ensure no horizontal scroll anywhere on mobile */
+html, body { max-width: 100vw; overflow-x: hidden; }
+
 @media (max-width: 760px) {
+  /* ── Collapse multi-column inline grids to 1 column ── */
   [style*="repeat(4, 1fr)"]:not(.keep-grid),
   [style*="repeat(3, 1fr)"]:not(.keep-grid),
-  [style*="repeat(2, 1fr)"]:not(.keep-grid) {
+  [style*="repeat(2, 1fr)"]:not(.keep-grid),
+  [style*="grid-template-columns: 1fr 1fr"]:not(.keep-grid),
+  [style*="grid-template-columns:1fr 1fr"]:not(.keep-grid),
+  [style*="1.2fr 1fr"]:not(.keep-grid),
+  [style*="1.05fr 1fr"]:not(.keep-grid),
+  [style*="2fr 1fr"]:not(.keep-grid),
+  [style*="1fr 2fr"]:not(.keep-grid),
+  [style*="400px 1fr"]:not(.keep-grid),
+  [style*="380px 1fr"]:not(.keep-grid),
+  [style*="360px 1fr"]:not(.keep-grid) {
     grid-template-columns: 1fr !important;
   }
 
-  /* Reduce massive section padding on mobile */
-  [style*="padding: '7rem 1.5rem'"],
-  [style*="padding: '6rem 1.5rem'"],
-  [style*="padding: '8rem 1.5rem'"] {
-    padding: 4rem 1.25rem !important;
+  /* ── Section padding: shrink huge vertical padding ── */
+  [style*="padding: 7rem 1.5rem"],
+  [style*="padding: 8rem 1.5rem"],
+  [style*="padding:7rem 1.5rem"],
+  [style*="padding:8rem 1.5rem"] {
+    padding: 4rem 1rem !important;
   }
-  [style*="padding: '7rem 1.5rem 4rem'"],
-  [style*="padding: '5rem 1.5rem 3rem'"],
-  [style*="padding: '6rem 1.5rem 3rem'"] {
-    padding: 3.5rem 1.25rem 2.5rem !important;
+  [style*="padding: 6rem 1.5rem"],
+  [style*="padding:6rem 1.5rem"] {
+    padding: 3.5rem 1rem !important;
   }
-  [style*="padding: '5rem 1.5rem'"] {
-    padding: 3.5rem 1.25rem !important;
-  }
-  [style*="padding: '4rem 1.5rem 2rem'"] {
-    padding: 3rem 1.25rem 1.5rem !important;
-  }
-
-  /* Reduce the giant section bottom gaps that come from hr-gradient marginBottom */
-  hr.hr-gradient[style*="marginBottom: '5rem'"],
-  hr.hr-gradient[style*="margin-bottom: 5rem"] {
-    margin-bottom: 2.5rem !important;
-  }
-  hr.hr-gradient[style*="marginBottom: '4rem'"],
-  hr.hr-gradient[style*="margin-bottom: 4rem"] {
-    margin-bottom: 2rem !important;
-  }
-}
-
-/* Scale down a smaller breakpoint further */
-@media (max-width: 460px) {
-  [style*="padding: '7rem 1.5rem'"],
-  [style*="padding: '6rem 1.5rem'"],
-  [style*="padding: '8rem 1.5rem'"],
-  [style*="padding: '5rem 1.5rem'"] {
+  [style*="padding: 5rem 1.5rem"],
+  [style*="padding:5rem 1.5rem"] {
     padding: 3rem 1rem !important;
   }
+  [style*="padding: 4rem 1.5rem"],
+  [style*="padding:4rem 1.5rem"] {
+    padding: 2.5rem 1rem !important;
+  }
+
+  /* Inner card paddings — anything 3rem+ becomes 1.25rem */
+  [style*="padding: 3.5rem 3rem"],
+  [style*="padding: 3rem 2.5rem"],
+  [style*="padding: 2.5rem 2.5rem"],
+  [style*="padding: 2.25rem"],
+  [style*="padding: 2rem 2.5rem"],
+  [style*="padding: 2rem 2rem"] {
+    padding: 1.5rem 1.25rem !important;
+  }
+
+  /* Hr-gradient margin shrink */
+  hr.hr-gradient { margin-bottom: 2rem !important; margin-top: 0 !important; }
+
+  /* Aggressive heading shrink — clamp() values can still be too big */
+  h1 { font-size: clamp(2rem, 8vw, 2.6rem) !important; line-height: 1.12 !important; }
+  h2 { font-size: clamp(1.5rem, 6vw, 2rem) !important; line-height: 1.15 !important; }
+  h3 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; line-height: 1.2 !important; }
+
+  /* Reduce big absolute glow blobs that cause horizontal overflow */
+  [style*="width: 520px"][style*="border-radius: 50%"],
+  [style*="width: 480px"][style*="border-radius: 50%"],
+  [style*="width: 420px"][style*="border-radius: 50%"],
+  [style*="width: 400px"][style*="border-radius: 50%"] {
+    width: 280px !important; height: 280px !important;
+  }
+
+  /* Force every direct image inside cards to be fluid */
+  img { max-width: 100%; height: auto; }
+
+  /* Buttons: shrink to readable size, not gigantic */
+  [class*="btn-3d"] { font-size: 0.85rem !important; }
 }
 
-/* Disable card tilt and 3-D button hover transforms on touch devices —
-   these caused weird layout shifts and hover-stuck states on mobile */
+/* ── Smaller phones ── */
+@media (max-width: 460px) {
+  [style*="padding: 7rem 1.5rem"],
+  [style*="padding: 8rem 1.5rem"],
+  [style*="padding: 6rem 1.5rem"],
+  [style*="padding: 5rem 1.5rem"],
+  [style*="padding:7rem 1.5rem"],
+  [style*="padding:8rem 1.5rem"],
+  [style*="padding:6rem 1.5rem"],
+  [style*="padding:5rem 1.5rem"] {
+    padding: 2.75rem 0.9rem !important;
+  }
+  h1 { font-size: 1.95rem !important; }
+  h2 { font-size: 1.45rem !important; }
+}
+
+/* Disable hover transforms on touch devices */
 @media (hover: none), (max-width: 760px) {
   .tilt-card:hover {
     transform: none !important;
     box-shadow: 0 12px 28px rgba(0,0,0,0.45) !important;
   }
-  .btn-3d:hover {
-    transform: none !important;
-  }
+  .btn-3d:hover { transform: none !important; }
 }
 
-/* Make tap targets comfortable on small screens */
 @media (max-width: 760px) {
   a, button { -webkit-tap-highlight-color: transparent; }
 }
 
-/* Default body sizing tweak for very small screens */
 @media (max-width: 380px) {
-  html { font-size: 15px; }
+  html { font-size: 14.5px; }
 }
 
-/* ── Ticker on mobile: smaller gap + faster scroll feel ── */
+/* Ticker mobile */
 @media (max-width: 600px) {
   .ticker-track > span { margin-right: 1.5rem !important; font-size: 0.65rem !important; }
 }
 
-/* ── Navbar mobile menu container always visible when open ── */
 @media (max-width: 900px) {
   body { -webkit-text-size-adjust: 100%; }
 }
